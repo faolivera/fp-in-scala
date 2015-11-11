@@ -1,11 +1,11 @@
-package faolivera.fp
+package faolivera.fp.gettingstarted
 
-import annotation.tailrec
+import scala.annotation.tailrec
 
 /**
  * Created by folivera on 11/11/15.
  */
-package object gettingstarted {
+object GettingStarted {
 
   object LoopsFunctional {
 
@@ -24,12 +24,11 @@ package object gettingstarted {
       @tailrec
       def go(idx: Int): Boolean = {
         idx >= as.length - 1 ||
-        ( ordered(as(idx), as(idx + 1)) &&
-          go(idx + 1) )
+          ( ordered(as(idx), as(idx + 1)) &&
+            go(idx + 1) )
       }
       go(0)
     }
-
   }
 
   object FollowingTypes {
@@ -44,5 +43,5 @@ package object gettingstarted {
       a => f(g(a))
   }
 
-
 }
+
