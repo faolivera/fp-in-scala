@@ -94,4 +94,35 @@ object List {
       }
     }
   }
+
+  def sum1(ints: List[Int]): List[Int] = foldRightViaFoldLeft(ints, List[Int]()) { (i, acc) =>
+    Cons(i + 1, acc)
+  }
+
+  def doubleToString(doubles: List[Double]): List[String] = foldRightViaFoldLeft(doubles, List[String]()) { (d, acc) =>
+    Cons(d.toString, acc)
+  }
+
+  def map[A,B](as: List[A])(f: A => B): List[B] = {
+    foldRightViaFoldLeft(as, List[B]()) { (e, acc) =>
+      Cons(f(e), acc)
+    }
+  }
+
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = {
+    foldRightViaFoldLeft(as, List[A]()) { (e, acc) =>
+      if(f(e)) {
+        Cons(e, acc)
+      } else {
+        acc
+      }
+    }
+  }
+
+  def removeOddNumbers(ints: List[Int]): List[Int] = filter(ints)(_ % 2 == 0)
+
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = {
+    flatList(map(as)(f))
+  }
+
 }
