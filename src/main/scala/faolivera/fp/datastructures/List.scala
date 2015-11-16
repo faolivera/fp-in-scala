@@ -79,21 +79,19 @@ object List {
 
   def append[A](e: A, as: List[A]) = foldRight(as, List(e))( Cons(_, _) )
 
-  def flatList[A](as: List[List[A]]): List[A] = {
+  def flatList[A](as: List[List[A]]): List[A] =
     reverse(foldLeft(as, List[A]()) { (acc, l) =>
       foldLeft(l, acc) { (acc, a) =>
         Cons(a, acc)
       }
     })
-  }
 
-  def flatListRight[A](as: List[List[A]]): List[A] = {
+  def flatListRight[A](as: List[List[A]]): List[A] =
     foldRight(as, List[A]()) { (l, acc) =>
       foldRight(l, acc) { (a, acc) =>
         Cons(a, acc)
       }
     }
-  }
 
   def sum1(ints: List[Int]): List[Int] = foldRightViaFoldLeft(ints, List[Int]()) { (i, acc) =>
     Cons(i + 1, acc)
@@ -103,26 +101,18 @@ object List {
     Cons(d.toString, acc)
   }
 
-  def map[A,B](as: List[A])(f: A => B): List[B] = {
-    foldRightViaFoldLeft(as, List[B]()) { (e, acc) =>
-      Cons(f(e), acc)
-    }
+  def map[A,B](as: List[A])(f: A => B): List[B] = foldRightViaFoldLeft(as, List[B]()) { (e, acc) =>
+    Cons(f(e), acc)
   }
 
-  def filter[A](as: List[A])(f: A => Boolean): List[A] = {
-    foldRightViaFoldLeft(as, List[A]()) { (e, acc) =>
-      if(f(e)) {
-        Cons(e, acc)
-      } else {
-        acc
-      }
-    }
+  def filter[A](as: List[A])(f: A => Boolean): List[A] = foldRightViaFoldLeft(as, List[A]()) { (e, acc) =>
+    if(f(e)) Cons(e, acc)
+    else acc
   }
+
 
   def removeOddNumbers(ints: List[Int]): List[Int] = filter(ints)(_ % 2 == 0)
 
-  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = {
-    flatList(map(as)(f))
-  }
+  def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = flatList(map(as)(f))
 
 }
