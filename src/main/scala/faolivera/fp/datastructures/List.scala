@@ -115,4 +115,28 @@ object List {
 
   def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] = flatList(map(as)(f))
 
+  def filterViaFlatMap[A](as: List[A])(f: A => Boolean): List[A] = flatMap(as) { a =>
+    if (f(a)) List(a)
+    else Nil
+  }
+
+  def zipInts(list1: List[Int], list2: List[Int]): List[Int] = {
+    @tailrec
+    def zip(l1: List[Int], l2: List[Int], acc: List[Int]): List[Int] = (l1, l2) match {
+      case (_, Nil) => acc
+      case (Nil, _) => acc
+      case (Cons(x1, xs1), Cons(x2, xs2)) => zip(xs1, xs2, Cons(x1 + x2, acc))
+    }
+    reverse(zip(list1, list2, Nil))
+  }
+
+  def zipWith[A, B, C](list1: List[A], list2: List[B])(f: (A, B) => C): List[C] = {
+    @tailrec
+    def zip(l1: List[A], l2: List[B], acc: List[C]): List[C] = (l1, l2) match {
+      case (_, Nil) => acc
+      case (Nil, _) => acc
+      case (Cons(x1, xs1), Cons(x2, xs2)) => zip(xs1, xs2, Cons(f(x1,x2), acc))
+    }
+    reverse(zip(list1, list2, List[C]()))
+  }
 }

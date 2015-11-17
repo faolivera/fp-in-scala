@@ -49,7 +49,29 @@ class ListSpec extends Specification {
     }
   }
 
+  "zipInts" should {
+    "return List(5,7,9) from List(1,2,3) and List(4,5,6)" in {
+      List(5,7,9) === zipInts(List(1,2,3),List(4,5,6))
+    }
+  }
 
+  "zipInts" should {
+    "return List(5,7) from List(1,2) and List(4,5,6)" in {
+      List(5,7) === zipInts(List(1,2),List(4,5,6))
+    }
+  }
 
+  "zipWith" should {
+    "return List(5,7,9) for zipWith(List(1,2,3), List(4,5,6))(_ + _)" in {
+      List(5,7,9) === zipWith(List(1,2,3), List(4,5,6))(_ + _)
+    }
 
+    "return List(5,7,9) for zipWith(List(1,2,3), List(4,5,6))(_ * _)" in {
+      List(4,10,18) === zipWith(List(1,2,3), List(4,5,6))(_ * _)
+    }
+
+    "return List(\"1a\",\"2b\",\"3c\") for zipWith(List(1,2,3), List(\"a\",\"b\",\"c\"))(_.toString + _)" in {
+      List("1a","2b","3c") === zipWith(List(1,2,3), List("a","b","c"))(_.toString + _)
+    }
+  }
 }
