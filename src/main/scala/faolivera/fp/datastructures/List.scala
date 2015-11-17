@@ -139,4 +139,21 @@ object List {
     }
     reverse(zip(list1, list2, List[C]()))
   }
+
+  def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = {
+    @tailrec
+    def go(sp: List[A], sb: List[A], status: Boolean): Boolean = (sp, sb) match {
+      case (Nil, Nil) => status
+      case (Nil, _) => false
+      case (_, Nil) => status
+      case (Cons(sph, spt), Cons(sbh, sbt)) =>
+        val matchHead = sph == sbh
+        go(spt, if(matchHead) sbt else sb, matchHead)
+    }
+    sub == Nil ||
+    sup != Nil &&
+    go(sup, sub, status = false)
+  }
+
+
 }

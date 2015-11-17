@@ -74,4 +74,38 @@ class ListSpec extends Specification {
       List("1a","2b","3c") === zipWith(List(1,2,3), List("a","b","c"))(_.toString + _)
     }
   }
+
+  "hasSubsequence" should {
+    "return true for List(1,2,3,4), List(1,2)" in {
+      hasSubsequence(List(1,2,3,4), List(1,2)) === true
+    }
+
+    "return true for List(1,2,3,4), List(2,3)" in {
+      hasSubsequence(List(1,2,3,4), List(2,3)) === true
+    }
+
+    "return true for List(1,2,3,4), List(3,4)" in {
+      hasSubsequence(List(1,2,3,4), List(3,4)) === true
+    }
+
+    "return true for List(1,2,3,4), List(3)" in {
+      hasSubsequence(List(1,2,3,4), List(3)) === true
+    }
+
+    "return true for List(1,2,3,4), List(4)" in {
+      hasSubsequence(List(1,2,3,4), List(4)) === true
+    }
+
+    "return true for List(1,2,3,4), Nil" in {
+      hasSubsequence(List(1,2,3,4), Nil) === true
+    }
+
+    "return false for List(1,2,3,4), List(3, 7)" in {
+      hasSubsequence(List(1,2,3,4), List(4,5)) === false
+    }
+
+    "return false for List(1,2,3,4), List(4,5)" in {
+      hasSubsequence(List(1,2,3,4), List(4,5)) === false
+    }
+  }
 }
